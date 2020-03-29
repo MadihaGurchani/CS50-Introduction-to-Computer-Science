@@ -135,7 +135,7 @@ bool vote(int voter, int rank, string name)
         if (strcmp(candidates[i].name, name) == 0)
         {
             //updating prefernce
-            preferences[i][rank] = i;
+            preferences[voter][rank] = i;
             return true;
         }
     }
@@ -147,15 +147,16 @@ void tabulate(void)
 {
     //TODO
     //columns in the preferences array
-    int j = 0;
     for (int i = 0; i < voter_count; i++)
     {
-        //while canidate is eliminated go performing this loop
-        while (j < candidate_count && candidates[preferences[i][j]].eliminated == true)
+        for (int j = 0; j < candidate_count; j++)
         {
-            j++;
+             if (candidates[preferences[i][j]].eliminated == false )
+                {
+                     candidates[preferences[i][j]].votes++;
+                     break;
+                }
         }
-        candidates[preferences[i][j]].votes++;
     }
     return;
 }
@@ -194,19 +195,19 @@ int find_min(void)
 bool is_tie(int min)
 {
     // TODO
-    int tie_people = 0;
+    bool tie_people = false;
     for (int i = 0; i < candidate_count;i++)
     {
         if (candidates[i].eliminated == false && candidates[i].votes == min)
         {
-            tie_people++;
-            if (tie_people > 1)
-            {
-                return true;
-            }
+            tie_people = true;
+        }
+        else
+        {
+            tie_people = false;
         }
     }
-    return false;
+    return tie_people;
 }
 
 // Eliminate the candidate (or candidiates) in last place
