@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
         return 1;
     }
     //Making a new file for output
-    FILE *img == NULL
+    FILE *img = NULL;
     //Creating new data type to store byte of data
     typedef uint8_t BYTE;
     //Creating storage array
@@ -27,16 +27,16 @@ int main(int argc, char *argv[])
     // creating an array to store filenames of JPEG images
     char filename[8];
     //Reading the file
-    while(fread(buffer,512,1,argv[1]) == 1)
+    while(fread(buffer,512,1,f)  == 1)
     {
-        if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0 == 0xe0)
+        if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0)== 0xe0)
         {
             if (index == 0)
             {
                 //give name to file
                 sprintf(filename, "%03i.jpg", index);
                 //open file for writing
-                FILE *img = fopen(filename, "w");
+                img = fopen(filename, "w");
                 index++;
                 //write to file
                 fwrite(buffer,512,1,img);
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
                  //give name to file
                 sprintf(filename, "%03i.jpg", index);
                 //open file for writing
-                FILE *img = fopen(filename, "w");
+                img = fopen(filename, "w");
                 index++;
                 //write to file
                 fwrite(buffer,512,1,img);
