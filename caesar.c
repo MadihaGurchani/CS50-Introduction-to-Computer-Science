@@ -36,8 +36,6 @@ int main( int argc,string argv[])
                char c;
                for (int i = 0 ; i < len; i++)
                {
-                        if isalpha(plain[i])
-                       {
                              if (isupper(plain[i]))
                              {
                                  asc[i] = (((plain[i] - 65) + key) % 26) + 65;
@@ -48,7 +46,7 @@ int main( int argc,string argv[])
                              }
                             else
                             {
-                             asc[i] = (plain[i] + key);
+                             asc[i] = plain[i];
                             }
                         }
                         else
