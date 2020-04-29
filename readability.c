@@ -42,8 +42,8 @@ int main(void)
     int Count = round(index);
     if (Count < 1 || Count >= 16)
     {
-         string Grade = Grade_Level(Count);
-         printf("%s\n", Grade);
+        string Grade = Grade_Level(Count);
+        printf("%s\n", Grade);
     }
     else
     {
