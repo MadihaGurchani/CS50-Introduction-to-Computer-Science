@@ -32,30 +32,23 @@ int main( int argc,string argv[])
            {
                string plain = get_string("plaintext: ");
                int len = strlen(plain);
-               char asc[len];
-               char c;
                for (int i = 0 ; i < len; i++)
                {
                              if (isupper(plain[i]))
                              {
-                                 asc[i] = (((plain[i] - 65) + key) % 26) + 65;
+                                 printf("%c",(((plain[i] - 65) + key) % 26) + 65);
                              }
                             else if (islower(plain[i]))
                              {
-                                 asc[i] = (((plain[i] - 97) + key) % 26) + 97;
+                                 printf("%c",asc[i] = (((plain[i] - 97) + key) % 26) + 97);
                              }
                             else
                             {
-                             asc[i] = plain[i];
+                             printf("ciphertext: %c\n ",plain[i]);
                             }
-                        }
-                        else
-                        {
-                             asc[i] = plain[i];
 
-                        }
                  }
-                 printf("ciphertext: %s\n ",asc);
+                 printf("\n");
            }
    }
    // Error message incase argc != 2
