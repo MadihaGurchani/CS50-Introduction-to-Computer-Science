@@ -40,7 +40,7 @@ int main( int argc,string argv[])
                              }
                             else if (islower(plain[i]))
                              {
-                                 printf("%c",asc[i] = (((plain[i] - 97) + key) % 26) + 97);
+                                 printf("%c",(((plain[i] - 97) + key) % 26) + 97);
                              }
                             else
                             {
@@ -49,7 +49,7 @@ int main( int argc,string argv[])
 
                  }
                  printf("\n");
-           }
+           }     return 0;
    }
    // Error message incase argc != 2
    else
