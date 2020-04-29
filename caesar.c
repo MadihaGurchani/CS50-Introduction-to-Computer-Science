@@ -1,63 +1,54 @@
 #include <stdio.h>
 #include <cs50.h>
-#include <math.h>
-#include <stdlib.h>
-#include <ctype.h>
 #include <string.h>
+#include <ctype.h>
 
+/**
+ * Caesar.c
+ * A program that encrypts messages using Caesar’s cipher. Your program must
+ * accept a single command-line argument: a non-negative integer. Let’s call it
+ * k for the sake of discussion. If your program is executed without any
+ * command-line arguments or with more than one command-line argument, your
+ * program should yell at the user and return a value of 1.
+ *
+ * */
 
-int main( int argc,string argv[])
-{
-   bool Answer = false;
-   if (argc == 2)
-   //Validating the key
-   {
-       int key = atoi(argv[1]);
-       //iterate over each object in argv[1]
-       for (int i = 0; i < strlen(argv[1]); i++)
-       {
-           if (isdigit(argv[1][i]))
-           {
-               Answer = true;
-           }
-           // Errpr message incase argv[1][i] not a digit
-           else
-           {
-                printf("Usage: ./caesar key\n");
-                return 1;
-           }
-       }
-       //Encryption
-       if (Answer == true)
-           {
-               string plain = get_string("plaintext: ");
-               int len = strlen(plain);
-               for (int i = 0 ; i < len; i++)
-               {
-                             if (isupper(plain[i]))
-                             {
-                                 printf("%c",(((plain[i] - 65) + key) % 26) + 65);
-                             }
-                            else if (islower(plain[i]))
-                             {
-                                 printf("%c",(((plain[i] - 97) + key) % 26) + 97);
-                             }
-                            else
-                            {
-                             printf("ciphertext: %c\n ",plain[i]);
-                            }
-
-                 }
-                 printf("\n");
-           }     return 0;
-   }
-   // Error message incase argc != 2
-   else
-   {
-        printf("Usage: ./caesar key\n");
+ int main(int argc, string argv[])
+ {
+    // check for 2 arguments only
+    if (argc != 2)
+    {
+        printf("Nope\n");
         return 1;
-   }
-   return 0;
-}
+    }
 
+    // once I check for correct argv put key into an int k
+    int k = atoi(argv[1]);
+
+    // check if the integer is non-negative
+    if (k < 0)
+    {
+        printf("Nope\n");
+        return 1;
+    }
+    else
+    {
+        // prompt user for a code to encrypt
+        string code = GetString();
+
+        for (int i = 0, n = strlen(code); i < n; i++)
+            {
+                //check if the letter is uppercase or lowercase then convert
+                if islower(code[i])
+                    printf("%c", (((code[i] + k) - 97) % 26) + 97);
+                else if isupper(code[i])
+                    printf("%c", (((code[i] + k) - 65) % 26) + 65);
+                //if neither then just print whatever it is
+                else
+                    printf("%c", code[i]);
+            }
+            printf("\n");
+            return 0;
+    }
+ }
 
