@@ -5,14 +5,14 @@
 int main(int argc, char *argv[])
 {
     //Ensuring program only accepts one command line argument
-    if ( argc != 2 )
+    if (argc != 2)
     {
-       return 1;
+        return 1;
     }
     // Open the file entered
-    FILE *f = fopen( argv[1], "r" );
+    FILE *f = fopen(argv[1], "r");
     // incase the file does not exist
-    if ( argv[1] == NULL )
+    if (argv[1] == NULL)
     {
         return 1;
     }
@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
     // creating an array to store filenames of JPEG images
     char filename[8];
     //Reading the file
-    while(fread(buffer,512,1,f)  == 1)
+    while (fread(buffer, 512, 1 f)  == 1)
     {
-        if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0)== 0xe0)
+        if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0)
         {
             if (index == 0)
             {
@@ -39,25 +39,26 @@ int main(int argc, char *argv[])
                 img = fopen(filename, "w");
                 index++;
                 //write to file
-                fwrite(buffer,512,1,img);
+                fwrite(buffer, 512, 1, img);
             }
-            else if (index > 0 )
+            else if (index > 0)
             {
                 //close current file to write in a new file
                 fclose(img);
-                 //give name to file
+                //give name to file
                 sprintf(filename, "%03i.jpg", index);
                 //open file for writing
                 img = fopen(filename, "w");
                 index++;
                 //write to file
-                fwrite(buffer,512,1,img);
+                fwrite(buffer, 512, 1, img);
 
             }
 
-        }else if (index > 0)
+        }
+        else if (index > 0)
         {
-            fwrite(buffer,512,1,img);
+            fwrite(buffer, 512, 1, img);
         }
     }
     //close remaining files
@@ -66,3 +67,6 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+
+
