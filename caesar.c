@@ -31,7 +31,7 @@ int main(int argc, string argv[])
         //if correct input then proceed
         if (Answer == true)
         {
-            string plain = get_string("plaintext: ")
+            string plain = get_string("plaintext: ");
                            int len = strlen(plain);
             char asc[len];
             printf("ciphertext: ");
