@@ -152,10 +152,10 @@ void tabulate(void)
         for (int j = 0; j < candidate_count; j++)
         {
             if (candidates[preferences[i][j]].eliminated == false)
-                {
-                     candidates[preferences[i][j]].votes++;
-                     break;
-                }
+            {
+                candidates[preferences[i][j]].votes++;
+                break;
+            }
         }
     }
     return;
@@ -164,13 +164,13 @@ void tabulate(void)
 bool print_winner(void)
 {
     // TODO
-    float win_votes = voter_count/2;
+    float win_votes = voter_count / 2;
     for (int i = 0; i < candidate_count; i++)
     {
         if (candidates[i].votes > win_votes)
         {
-             printf("%s\n",candidates[i].name);
-             return true;
+            printf("%s\n", candidates[i].name);
+            return true;
         }
     }
     return false;
@@ -195,7 +195,7 @@ int find_min(void)
 bool is_tie(int min)
 {
     // TODO
-    for (int i = 0; i < candidate_count;i++)
+    for (int i = 0; i < candidate_count; i++)
     {
         if (candidates[i].votes != min && candidates[i].eliminated == false)
         {
@@ -218,18 +218,5 @@ void eliminate(int min)
     }
     return;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
