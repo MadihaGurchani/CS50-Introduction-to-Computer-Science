@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     // creating an array to store filenames of JPEG images
     char filename[8];
     //Reading the file
-    while (fread(buffer, 512, 1 f)  == 1)
+    while (fread(buffer, 512, 1, f)  == 1)
     {
         if (buffer[0] == 0xff && buffer[1] == 0xd8 && buffer[2] == 0xff && (buffer[3] & 0xf0) == 0xe0)
         {
