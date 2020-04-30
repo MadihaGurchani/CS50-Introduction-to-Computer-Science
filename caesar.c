@@ -32,7 +32,7 @@ int main(int argc, string argv[])
         if (Answer == true)
         {
             string plain = get_string("plaintext: ");
-                           int len = strlen(plain);
+            int len = strlen(plain);
             char asc[len];
             printf("ciphertext: ");
             //iterate over length of plaintext and encrypt
