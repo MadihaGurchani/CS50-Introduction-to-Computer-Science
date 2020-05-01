@@ -83,13 +83,15 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
             duplicate[i][j] = image[i][j];
         }
     }
+    //Correct width
+    int length = width - 1;
     //iterate over each row of the image
     for(int i = 0; i < height; i++)
     {
         //iterate over each colum of the image
         for(int j = 0; j < width; j++)
         {
-            image[i][j] = duplicate[i][width - j];
+            image[i][j] = duplicate[i][length - j];
         }
     }
 
