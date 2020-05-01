@@ -74,6 +74,25 @@ void sepia(int height, int width, RGBTRIPLE image[height][width])
 // Reflect image horizontally
 void reflect(int height, int width, RGBTRIPLE image[height][width])
 {
+    //Create a duplicate image
+    RGBTRIPLE duplicate[height][width];
+    for(int i = 0; i < height; i++)
+    {
+        for(int j = 0; j < width; j++)
+        {
+            duplicate[i][j] = image[i][j];
+        }
+    }
+    //iterate over each row of the image
+    for(int i = 0; i < height; i++)
+    {
+        //iterate over each colum of the image
+        for(int j = 0; j < width; j++)
+        {
+            image[i][j] = duplicate[i][width - j];
+        }
+    }
+
     return;
 }
 
