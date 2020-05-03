@@ -3,6 +3,7 @@
 #ifndef DICTIONARY_H
 #define DICTIONARY_H
 
+
 #include <stdbool.h>
 
 // Maximum length for a word
