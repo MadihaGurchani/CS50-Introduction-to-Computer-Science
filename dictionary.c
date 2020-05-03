@@ -24,9 +24,7 @@ typedef struct node
 }
 node;
 
-// Djb2 hash function
-// Modified to be case insensitive
-// Source: http://www.cse.yorku.ca/~oz/hash.html
+//Djb2 function used -Source: http://www.cse.yorku.ca/~oz/hash.html
 unsigned int hash(const char *str)
 {
     unsigned int hash = 5381;
@@ -43,89 +41,88 @@ unsigned int hash(const char *str)
 }
 
 // Represents a hash table
-node *hashTable[N] = {NULL};
+node *table[N] = {NULL};
 
 // Loads dictionary into memory, returning true if successful else false
 bool load(const char *dictionary)
 {
-    // Open dictionary
-    FILE *file = fopen(dictionary, "r");
-    if (file == NULL)
+    // Open File successfully
+    FILE *file_pointer = fopen(dictionary, "r");
+    if (file_pointer == NULL)
     {
         unload();
         return false;
     }
 
-    // Buffer for a word
-    char word[LENGTH + 1] = {0};
+    // Create character array for words
+    char word[LENGTH + 1];
 
-    // Insert words into hash table
-    while (fscanf(file, "%s", word) != EOF)
+    // Insert the word in the hash table
+    while (fscanf(file_pointer, "%s", word) != EOF)
     {
-        // Hash the word
-        unsigned int hashValue = hash(word);
+        // Get index
+        unsigned int index = hash(word);
 
         // Allocate memory for a new node
-        node *newNode = malloc(sizeof(node));
-        if (newNode == NULL)
+        node *n = malloc(sizeof(node));
+        if (n == NULL)
         {
             unload();
-            printf("\n\nLOG: messed up while mallocing newNode.\n\n");
+            printf("No more memory\n");
             return false;
         }
 
-        // Insert word to the newly created node
-        strcpy(newNode -> word, word);
+        //Copy word to node
+        strcpy(n -> word, word);
 
-        // Prepend the node
-        newNode -> next = hashTable[hashValue];
-        hashTable[hashValue] = newNode;
+        // Point towards next node
+        n -> next = table[index];
+        table[index] = n;
 
     }
-
-    // Close dictionary and success
-    fclose(file);
+    fclose(file_pointer);
     return true;
 }
 
 // Returns number of words in dictionary if loaded else 0 if not yet loaded
 unsigned int size(void)
 {
-    // Word counter
-    int wordCount = 0;
+    // Total words
+    int Total = 0;
 
-    // Iterate over all the buckets
+    // Iterate over all the heads in hash table
     for (int i = 0; i < N; ++i)
     {
-        node *temp = hashTable[i];
+        node *temp = table[i];
 
-        // Iterate over each word in a bucket
+        // Traverse the linked list
         while (temp != NULL)
         {
-            ++wordCount;
+            Total++;
             temp = temp -> next;
         }
     }
 
-    return wordCount;
+    return Total;
 }
 
 // Returns true if word is in dictionary else false
 bool check(const char *word)
 {
-    // Hash the word and store a pointer to the bucket
-    unsigned int hashValue = hash(word);
-    node *temp = hashTable[hashValue];
+    // Find index pointer of head in hash table
+    unsigned int Index= hash(word);
+    //Set pointer to index
+    node *temp = table[Index];
 
-    // Compare each word in dictionary with the input word
+    // Traverse the linked list
     while (temp != NULL)
     {
-        // If words are same (ignoring case) return true
+        // if words are similar ignoring case
         if (strcasecmp(temp -> word, word) == 0)
         {
             return true;
         }
-
+        //else check next node
         temp = temp -> next;
     }
 
@@ -135,34 +132,32 @@ bool check(const char *word)
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
-    // Counter for checking if all buckets are NULL or not
-    int countBuckets = 0;
+     // Counter for checking if all buckets are checked
+    int Total = 0;
 
-    // Iterate over all the buckets
+    // Iterate over all the heads in hash table
     for (int i = 0; i < N; ++i)
     {
-        node *temp = hashTable[i];
+        node *temp = table[i];
 
-        // Free all the nodes in a bucket
-        while (hashTable[i] != NULL)
+        // Traverse over linked list
+        while (table[i] != NULL)
         {
             temp = temp -> next;
-            free(hashTable[i]);
-            hashTable[i] = temp;
+            free(table[i]);
+            table[i] = temp;
         }
 
-        // if bucket is NULL then increment the counter
-        if (hashTable[i] == NULL)
+        // Case when bucket is empty
+        if (table[i] == NULL)
         {
-            ++countBuckets;
+            Total++;
         }
     }
-
-    // return true if all buckets are NULL (or free)
-    if (countBuckets == N)
+    // Returns true if all buckets are NULL or free
+    if (Total == N)
     {
         return true;
     }
-
     return false;
 }
