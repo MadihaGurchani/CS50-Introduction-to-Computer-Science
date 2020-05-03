@@ -110,7 +110,7 @@ unsigned int size(void)
 bool check(const char *word)
 {
     // Find index pointer of head in hash table
-    unsigned int Index= hash(word);
+    unsigned int Index = hash(word);
     //Set pointer to index
     node *temp = table[Index];
 
@@ -132,7 +132,7 @@ bool check(const char *word)
 // Unloads dictionary from memory, returning true if successful else false
 bool unload(void)
 {
-     // Counter for checking if all buckets are checked
+    // Counter for checking if all buckets are checked
     int Total = 0;
 
     // Iterate over all the heads in hash table
