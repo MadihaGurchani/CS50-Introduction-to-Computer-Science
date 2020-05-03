@@ -10,15 +10,17 @@
 #include <strings.h>
 
 #include "dictionary.h"
+
+#include "dictionary.h"
 // Number of buckets in hash table 2^16
-const unsigned int N = 65536;
+const unsigned int N = 40001;
 typedef struct node
 {
     char word[LENGTH+1];
     struct node *next;
 } node;
 // Hash table
-node *table[N];
+node *table[N] = {NULL};
 
 // Returns true if word is in dictionary else false
 bool check(const char *word)
@@ -47,18 +49,21 @@ bool check(const char *word)
     }
     return false;
 }
-//* https://www.reddit.com/r/cs50/comments/1x6vc8/pset6_trie_vs_hashtable/cf9nlkn/
-// Hashes word to a number
-unsigned int hash(const char *needs_hashing)
+//Djb2 Hash Function used
+unsigned int hash(const char *str)
 {
-    // TODO
-    unsigned int hash = 0;
-    for (int i=0, n=strlen(needs_hashing); i<n; i++)
-        hash = (hash << 2) ^ needs_hashing[i];
-    return hash % N;
-    return 0;
-}
+    unsigned int hash = 5381;
+    int c;
 
+    // Iterate through the characters of string
+    while ((c = *str++))
+    {
+        // Calculate (hash * 33) + c
+        hash = ((hash << 5) + hash) + tolower(c);
+    }
+
+    return hash % N;
+}
 // Loads dictionary into memory, returning true if successful else false
 bool load(const char *dictionary)
 {
@@ -120,18 +125,32 @@ unsigned int size(void)
 bool unload(void)
 {
     // TODO
-    //iterate over the heads in the hash table
-    for (int i = 0; i < N; i++)
+    // Counter for checking if all buckets are checked
+    int Total = 0;
+
+    // Iterate over all the heads in hash table
+    for (int i = 0; i < N; ++i)
     {
-        node *pointer = table[i];
-        //traverse the linked list
-        while (pointer != NULL)
+        node *temp = table[i];
+
+        // Traverse over linked list
+        while (table[i] != NULL)
         {
-           node *tmp = pointer;
-           pointer = pointer->next;
-           free(tmp);
+            temp = temp -> next;
+            free(table[i]);
+            table[i] = temp;
         }
-        free(pointer);
+
+        // Case when bucket is empty
+        if (table[i] == NULL)
+        {
+            Total++;
+        }
+    }
+    // Returns true if all buckets are NULL or free
+    if (Total == N)
+    {
+        return true;
     }
     return false;
 }
