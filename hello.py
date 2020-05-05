@@ -1,6 +1,6 @@
-#Ask User for input
+# Ask User for input
 s = input("What is your name?\n")
-#print Input
+# Print Input
 print(f"hello, {s}")
-#Print new line
+# Print new line
 print()
