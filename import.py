@@ -6,6 +6,7 @@ import os
 from cs50 import SQL
 from sys import argv, exit
 
+
 def main():
     # Check if correct number of command-line arguments provided
     if len(argv) != 2:
@@ -33,7 +34,7 @@ def main():
                            name[0], name[1], name[2], line["house"], line["birth"])
             # Only First name and Last name exist
             else:
-                 db.execute("INSERT INTO students(first, middle, last, house, birth) VALUES(?, ?, ?, ?, ?)",
+                db.execute("INSERT INTO students(first, middle, last, house, birth) VALUES(?, ?, ?, ?, ?)",
                            name[0], None, name[1], line["house"], line["birth"])
     exit(0)
 
