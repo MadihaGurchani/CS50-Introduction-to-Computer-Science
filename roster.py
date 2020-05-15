@@ -1,12 +1,11 @@
 # TODO
-import sqlite3
 import cs50
 from cs50 import SQL
 from sys import argv, exit
 
 def main():
      # Check if correct number  of command-line arguments and string given
-     if not len(argv) == 2 and isinstance(argv[1],str):
+     if not (len(argv) == 2 and isinstance(argv[1],str)):
          print("Incorrect input")
          exit(1)
 
