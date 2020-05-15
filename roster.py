@@ -14,7 +14,7 @@ def main():
      houses = ["ravenclaw", "gryffindor", "hufflepuff", "slytherin"]
      # Convert house to lower caps for case insensitivity
      house = argv[1].lower()
-     if not house in houses:
+     if house not in houses:
         print("Dear Muggle, you have inserted an invalid house name")
         exit(1)
 
