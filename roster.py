@@ -1,8 +1,6 @@
 # TODO
 import sqlite3
-import csv
 import cs50
-import os
 from cs50 import SQL
 from sys import argv, exit
 
@@ -31,3 +29,6 @@ def main():
             print(f"{data['first']} {data['last']}, born {data['birth']}")
         else:
             print(f"{data['first']} {data['middle']} {data['last']}, born {data['birth']}")
+     exit(0)
+
+main()
