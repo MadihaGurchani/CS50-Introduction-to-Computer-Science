@@ -11,10 +11,10 @@ def main():
          exit(1)
 
      # Check if valid house entered
-     houses = ["ravenclaw", "griffindor", "hufflepuff", "slytherin"]
+     houses = ["ravenclaw", "gryffindor", "hufflepuff", "slytherin"]
      # Convert house to lower caps for case insensitivity
-     house = argv[1].lower
-     if house not in houses:
+     house = argv[1].lower()
+     if not house in houses:
         print("Dear Muggle, you have inserted an invalid house name")
         exit(1)
 
