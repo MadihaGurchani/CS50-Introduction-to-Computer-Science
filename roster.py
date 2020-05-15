@@ -20,7 +20,7 @@ def main():
      # Open database
      db = cs50.SQL("sqlite:///students.db")
      # Order correctly
-     data = db.execute("SELECT * FROM datas WHERE house = (?) ORDER BY last", argv[1])
+     data = db.execute("SELECT * FROM students WHERE house = (?) ORDER BY last", argv[1])
 
      # Print data correctly
      for row in data:
