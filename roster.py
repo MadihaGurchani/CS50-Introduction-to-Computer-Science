@@ -20,14 +20,16 @@ def main():
      # Open database
      db = cs50.SQL("sqlite:///students.db")
      # Order correctly
-     data = db.execute("SELECT * FROM students WHERE house = (?) ORDER BY last", argv[1])
+     students = db.execute("SELECT * FROM students WHERE house = (?) ORDER BY last", argv[1])
 
      # Print data correctly
-     for row in data:
+     for row in students:
         if row["middle"] == None:
-            print(f"{data['first']} {data['last']}, born {data['birth']}")
+            print(f"{students['first']} {students['last']}, born {students['birth']}")
         else:
-            print(f"{data['first']} {data['middle']} {data['last']}, born {data['birth']}")
+            print(f"{students['first']} {students['middle']} {students['last']}, born {students['birth']}")
      exit(0)
 
-main()
+if __name__ == "__main__":
+    main()
+
